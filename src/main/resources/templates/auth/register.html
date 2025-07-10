@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTracker - 회원가입</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body>
+<div class="auth-container">
+    <div class="auth-background">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <div class="auth-card register-card">
+        <div class="auth-header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>StudyTracker</h1>
+            </div>
+            <p class="subtitle">개인 맞춤형 학습 관리 플랫폼</p>
+        </div>
+
+        <div class="auth-content">
+            <h2 class="form-title">회원가입</h2>
+            <p class="form-description">새 계정을 만들어 학습 여정을 시작하세요</p>
+
+            <form id="registerForm" class="auth-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name" class="form-label">이름</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="이름을 입력하세요" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">이메일</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력하세요" required>
+                        </div>
+                        <div class="input-feedback" id="emailFeedback"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password" class="form-input" placeholder="비밀번호를 입력하세요" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill"></div>
+                            </div>
+                            <span class="strength-text">비밀번호 강도</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">비밀번호 확인</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="비밀번호를 다시 입력하세요" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye" id="confirmPasswordToggleIcon"></i>
+                            </button>
+                        </div>
+                        <div class="input-feedback" id="confirmPasswordFeedback"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studyGoalHours" class="form-label">일일 학습 목표 시간</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-target input-icon"></i>
+                        <input type="number" id="studyGoalHours" name="studyGoalHours" class="form-input" placeholder="6" min="1" max="24" value="6">
+                        <span class="input-suffix">시간</span>
+                    </div>
+                    <small class="input-helper">하루에 학습하고 싶은 목표 시간을 설정하세요</small>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        <a href="/terms" target="_blank">이용약관</a>과 <a href="/privacy" target="_blank">개인정보처리방침</a>에 동의합니다
+                    </label>
+
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="agreeMarketing" name="agreeMarketing">
+                        <span class="checkmark"></span>
+                        마케팅 정보 수신에 동의합니다 (선택)
+                    </label>
+                </div>
+
+                <button type="submit" class="auth-btn primary" id="registerBtn">
+                    <span class="btn-text">회원가입</span>
+                    <i class="fas fa-spinner fa-spin btn-spinner" style="display: none;"></i>
+                </button>
+
+                <div class="divider">
+                    <span>또는</span>
+                </div>
+
+                <div class="social-login">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i>
+                        Google로 가입
+                    </button>
+                    <button type="button" class="social-btn github">
+                        <i class="fab fa-github"></i>
+                        GitHub로 가입
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="auth-footer">
+            <p>이미 계정이 있으신가요? <a href="/auth/login" class="auth-link">로그인</a></p>
+        </div>
+    </div>
+
+    <div class="signup-benefits">
+        <h3>StudyTracker와 함께라면</h3>
+        <div class="benefit-list">
+            <div class="benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>체계적인 학습 계획 관리</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>개인 맞춤형 복습 시스템</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>실시간 학습 진도 추적</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>과학적 데이터 기반 분석</span>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-check-circle"></i>
+                <span>집중력 향상 도구</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 비밀번호 표시/숨김 토글
+    function togglePassword(fieldId) {
+        const passwordInput = document.getElementById(fieldId);
+        const toggleIcon = document.getElementById(fieldId + 'ToggleIcon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        }
+    }
+
+    // 비밀번호 강도 체크
+    function checkPasswordStrength(password) {
+        let strength = 0;
+        const checks = {
+            length: password.length >= 8,
+            lowercase: /[a-z]/.test(password),
+            uppercase: /[A-Z]/.test(password),
+            numbers: /\d/.test(password),
+            special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        };
+
+        strength = Object.values(checks).filter(Boolean).length;
+
+        const strengthBar = document.querySelector('.strength-fill');
+        const strengthText = document.querySelector('.strength-text');
+
+        if (strength <= 2) {
+            strengthBar.style.width = '33%';
+            strengthBar.style.background = '#ef4444';
+            strengthText.textContent = '약함';
+            strengthText.style.color = '#ef4444';
+        } else if (strength <= 4) {
+            strengthBar.style.width = '66%';
+            strengthBar.style.background = '#f59e0b';
+            strengthText.textContent = '보통';
+            strengthText.style.color = '#f59e0b';
+        } else {
+            strengthBar.style.width = '100%';
+            strengthBar.style.background = '#10b981';
+            strengthText.textContent = '강함';
+            strengthText.style.color = '#10b981';
+        }
+
+        return strength;
+    }
+
+    // 이메일 유효성 검사
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // 실시간 유효성 검사
+    document.getElementById('password').addEventListener('input', function() {
+        checkPasswordStrength(this.value);
+    });
+
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        const feedback = document.getElementById('confirmPasswordFeedback');
+
+        if (confirmPassword && password !== confirmPassword) {
+            feedback.textContent = '비밀번호가 일치하지 않습니다.';
+            feedback.className = 'input-feedback error';
+            this.classList.add('error');
+        } else if (confirmPassword && password === confirmPassword) {
+            feedback.textContent = '비밀번호가 일치합니다.';
+            feedback.className = 'input-feedback success';
+            this.classList.remove('error');
+        } else {
+            feedback.textContent = '';
+            feedback.className = 'input-feedback';
+            this.classList.remove('error');
+        }
+    });
+
+    document.getElementById('email').addEventListener('blur', function() {
+        const email = this.value;
+        const feedback = document.getElementById('emailFeedback');
+
+        if (email && !validateEmail(email)) {
+            feedback.textContent = '올바른 이메일 형식이 아닙니다.';
+            feedback.className = 'input-feedback error';
+            this.classList.add('error');
+        } else {
+            feedback.textContent = '';
+            feedback.className = 'input-feedback';
+            this.classList.remove('error');
+        }
+    });
+
+    // 회원가입 폼 제출
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // 유효성 검사
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const agreeTerms = document.getElementById('agreeTerms').checked;
+
+        if (password !== confirmPassword) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        if (!agreeTerms) {
+            alert('이용약관에 동의해주세요.');
+            return;
+        }
+
+        const registerBtn = document.getElementById('registerBtn');
+        const btnText = registerBtn.querySelector('.btn-text');
+        const btnSpinner = registerBtn.querySelector('.btn-spinner');
+
+        // 로딩 상태 표시
+        registerBtn.disabled = true;
+        btnText.style.display = 'none';
+        btnSpinner.style.display = 'inline-block';
+
+        const formData = new FormData(this);
+
+        setTimeout(() => {
+            alert('회원가입이 완료되었습니다!');
+            window.location.href = '/auth/login';
+        }, 2000);
+    });
+
+    // 소셜 회원가입 버튼 이벤트
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const provider = this.classList.contains('google') ? 'Google' : 'GitHub';
+            alert(`${provider} 회원가입은 준비 중입니다.`);
+        });
+    });
+</script>
+</body>
+</html>

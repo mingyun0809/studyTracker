@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTracker - 로그인</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body>
+<div class="auth-container">
+    <div class="auth-background">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>StudyTracker</h1>
+            </div>
+            <p class="subtitle">개인 맞춤형 학습 관리 플랫폼</p>
+        </div>
+
+        <div class="auth-content">
+            <h2 class="form-title">로그인</h2>
+            <p class="form-description">계정에 로그인하여 학습을 시작하세요</p>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">이메일</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="이메일을 입력하세요" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">비밀번호</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="비밀번호를 입력하세요" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span class="checkmark"></span>
+                        로그인 상태 유지
+                    </label>
+                    <a href="/auth/forgot-password" class="forgot-password">비밀번호를 잊으셨나요?</a>
+                </div>
+
+                <button type="submit" class="auth-btn primary" id="loginBtn">
+                    <span class="btn-text">로그인</span>
+                    <i class="fas fa-spinner fa-spin btn-spinner" style="display: none;"></i>
+                </button>
+
+                <div class="divider">
+                    <span>또는</span>
+                </div>
+
+                <div class="social-login">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i>
+                        Google로 로그인
+                    </button>
+                    <button type="button" class="social-btn github">
+                        <i class="fab fa-github"></i>
+                        GitHub로 로그인
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="auth-footer">
+            <p>아직 계정이 없으신가요? <a href="/auth/register" class="auth-link">회원가입</a></p>
+        </div>
+    </div>
+
+    <div class="features-preview">
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="feature-content">
+                <h3>뽀모도로 타이머</h3>
+                <p>25분 집중 + 5분 휴식으로 효율적인 학습</p>
+            </div>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="feature-content">
+                <h3>학습 통계</h3>
+                <p>데이터 기반 학습 패턴 분석 및 개선</p>
+            </div>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="feature-content">
+                <h3>복습 시스템</h3>
+                <p>과학적 간격 반복을 통한 기억력 강화</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 비밀번호 표시/숨김 토글
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('passwordToggleIcon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        }
+    }
+
+    // 로그인 폼 제출
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const loginBtn = document.getElementById('loginBtn');
+        const btnText = loginBtn.querySelector('.btn-text');
+        const btnSpinner = loginBtn.querySelector('.btn-spinner');
+
+        // 로딩 상태 표시
+        loginBtn.disabled = true;
+        btnText.style.display = 'none';
+        btnSpinner.style.display = 'inline-block';
+
+        const formData = new FormData(this);
+
+        // 실제 구현에서는 서버로 요청 전송
+        setTimeout(() => {
+            window.location.href = '/dashboard';
+        }, 1500);
+    });
+
+    // 소셜 로그인 버튼 이벤트
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const provider = this.classList.contains('google') ? 'Google' : 'GitHub';
+            alert(`${provider} 로그인은 준비 중입니다.`);
+        });
+    });
+
+    // 엔터 키로 폼 제출
+    document.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+        }
+    });
+</script>
+</body>
+</html>
