@@ -21,6 +21,7 @@ public class DashBoardController {
         if (signedUser == null) {
             signedUser = UserEntity.builder()
                     .id(1L)
+
                     .email("test@example.com")
                     .name("김학생")
                     .studyGoalHours(6)
